@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingHorizontal="24dp"
+    android:paddingTop="24dp"
+    android:paddingBottom="8dp"
+    android:background="@color/background">
+
+    <TextView
+        android:id="@+id/textHeaderGrupo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-black"
+        android:textAllCaps="true"
+        android:textColor="@color/accent"
+        android:textSize="14sp"
+        android:letterSpacing="0.1"
+        android:text="MERCADO" />
+
+    <View
+        android:layout_width="40dp"
+        android:layout_height="3dp"
+        android:layout_marginTop="4dp"
+        android:background="@color/accent" />
+
+</LinearLayout>

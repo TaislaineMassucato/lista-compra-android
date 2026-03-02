@@ -1,43 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:padding="16dp"
-    android:orientation="vertical"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5F6FA">
+    android:background="@color/background">
 
-    <ImageView
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        android:layout_gravity="center"
-        android:src="@drawable/baseline_shopping_bag_24"
-        android:tint="#F55B64"
-        android:layout_marginBottom="8dp"/>
+    <!-- Header / Top Bar (Minimalist) -->
+    <TextView
+        android:id="@+id/textTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="32dp"
+        android:text="Minha Lista"
+        android:textColor="@color/text_main"
+        android:textSize="32sp"
+        android:fontFamily="sans-serif-black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/editItem"
-        android:hint="Digite um item..."
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:background="@android:drawable/edit_text"
-        android:padding="12dp"/>
+    <TextView
+        android:id="@+id/textSubtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:text="Organize suas compras de forma prática"
+        android:textColor="@color/text_secondary"
+        android:textSize="14sp"
+        android:fontFamily="sans-serif-light"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textTitle" />
 
-    <Button
-        android:id="@+id/botaoAdicionar"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:text="Adicionar item"
-        android:textAllCaps="false"
-        android:backgroundTint="#F55B64"
-        android:textColor="@android:color/white"
-        android:layout_marginTop="8dp"/>
-
+    <!-- Main Content List -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerLista"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:layout_marginTop="12dp"/>
+        android:layout_marginTop="24dp"
+        android:clipToPadding="false"
+        android:paddingBottom="100dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textSubtitle"
+        tools:listitem="@layout/item_lista" />
 
-</LinearLayout>
+    <!-- Floating Action Button (Minimalist) -->
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/botaoAdicionar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="32dp"
+        android:backgroundTint="@color/accent"
+        android:text="Novo Item"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:fontFamily="sans-serif-medium"
+        app:icon="@android:drawable/ic_input_add"
+        app:iconTint="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
