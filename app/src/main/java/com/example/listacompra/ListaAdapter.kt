@@ -1,7 +1,8 @@
 package com.example.listacompra
 
+import android.graphics.Color
+import android.graphics.Paint
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.listacompra.databinding.ItemHeaderGrupoBinding
@@ -10,7 +11,8 @@ import com.example.listacompra.databinding.ItemListaBinding
 class ListaAdapter(
     private val lista: MutableList<Any>, // Lista mista de ItemLista e String (Header)
     private val onRemover: (ItemLista) -> Unit,
-    private val onEditar: (ItemLista) -> Unit
+    private val onEditar: (ItemLista) -> Unit,
+    private val onToggleCheck: (ItemLista, Boolean) -> Unit
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     companion object {
@@ -47,20 +49,32 @@ class ListaAdapter(
             holder.binding.categoriaItem.text = item.categoria
             holder.binding.textQuantidade.text = "${item.quantidade}x"
 
-            holder.binding.checkbox.setOnCheckedChangeListener(null)
-            holder.binding.checkbox.isChecked = item.marcado
+            // Ajustar visual baseado se o item foi "pego"
+            if (item.marcado) {
+                holder.binding.cardItem.setCardBackgroundColor(Color.parseColor("#E8F5E9")) // Verde claro
+                holder.binding.botaoMarcar.text = "Voltar"
+                holder.binding.botaoMarcar.setIconResource(android.R.drawable.ic_menu_revert)
+                holder.binding.nomeItem.paintFlags = holder.binding.nomeItem.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+                holder.binding.nomeItem.setTextColor(Color.parseColor("#4CAF50"))
+            } else {
+                holder.binding.cardItem.setCardBackgroundColor(Color.parseColor("#F8F9FA")) // Cinza claro/branco
+                holder.binding.botaoMarcar.text = "Peguei"
+                holder.binding.botaoMarcar.setIconResource(android.R.drawable.ic_input_add)
+                holder.binding.nomeItem.paintFlags = holder.binding.nomeItem.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
+                holder.binding.nomeItem.setTextColor(Color.parseColor("#212121"))
+            }
 
-            holder.binding.checkbox.setOnCheckedChangeListener { _, isChecked ->
-                item.marcado = isChecked
+            holder.binding.botaoMarcar.setOnClickListener {
+                onToggleCheck(item, !item.marcado)
             }
 
             holder.binding.botaoRemover.setOnClickListener {
                 onRemover(item)
             }
 
-            holder.binding.root.setOnClickListener {
-                onEditar(item)
-            }
+            // Desativado clique no nome para editar conforme solicitado
+            holder.binding.containerInfo.setOnClickListener(null)
+            holder.binding.containerInfo.isClickable = false
         }
     }
 
